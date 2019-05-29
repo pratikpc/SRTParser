@@ -8,5 +8,5 @@ Compiled using Microsoft Visual Studio
 Compiler with CoRoutines/Generators Support
 
 # Missing
-Add Support to take user input and modify SRT Files
+Add Support to take user input and modify SRT Files  
 by changing time offsets

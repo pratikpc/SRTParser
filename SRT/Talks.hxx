@@ -1,6 +1,6 @@
 #include <vector>
 
-#include "SRT/Talk.hxx"
+#include "Talk.hxx"
 
 namespace Srt {
    class Talks {

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "TUESL/Files.hxx"
+#include "../TUESL/Files.hxx"
 
-#include "SRT/Talk.hxx"
-#include "SRT/Talks.hxx"
-#include "SRT/Time.hxx"
+#include "Talk.hxx"
+#include "Talks.hxx"
+#include "Time.hxx"
 
 #include <string_view>
 
@@ -52,23 +52,20 @@ namespace Srt {
       }
 
     public:
-      Parser(std::string_view const       Name,
-             std::ios::ios_base::openmode OpenMode = std::fstream::in |
-                                                     std::fstream::out) :
+      Parser(std::string_view const Name,
+             int const              OpenMode = std::fstream::in | std::fstream::out) :
           File{Name, OpenMode} {}
 
       TUESL::Generator<Srt::Talk> ReadAsync() {
          auto Lines = File.ReadLines<>();
-         for (auto LinesIt = std::begin(Lines); LinesIt != std::end(Lines); ++LinesIt) {
+         for (auto LinesIt = std::begin(Lines); LinesIt != std::end(Lines); ++LinesIt)
             co_yield ExtractTalk(LinesIt, std::end(Lines));
-         }
       }
 
       Srt::Talks Read() {
          Srt::Talks Talks;
-         for (auto const& Talk : ReadAsync()) {
+         for (auto const& Talk : ReadAsync())
             Talks += Talk;
-         }
          return Talks;
       }
 
@@ -78,9 +75,8 @@ namespace Srt {
       }
 
       friend Srt::Parser& operator<<(Srt::Parser& Parser, Srt::Talks& Talks) {
-         for (auto const& Talk : Talks) {
+         for (auto const& Talk : Talks)
             Parser.File << Talk;
-         }
          return Parser;
       }
 
